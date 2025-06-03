@@ -1,1 +1,1 @@
-# eia_magma
+# EIA Magma
