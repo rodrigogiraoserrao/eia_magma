@@ -5,7 +5,7 @@ const OBSTACLE_WIDTH = 50;
 const OBSTACLE_HEIGHT = 100;
 const OBSTACLE_SPEED = CANVAS_WIDTH / 2; // 400 pixels per second (to cross in 2s)
 const PLAYER_RADIUS = 20;
-const GROUND_Y = CANVAS_HEIGHT - OBSTACLE_HEIGHT;
+const GROUND_Y = CANVAS_HEIGHT - 20; // Ground level with small padding from bottom
 const JUMP_INITIAL_VELOCITY = -500; // Negative because y-axis is inverted
 const GRAVITY = 1200;
 
@@ -73,7 +73,7 @@ socket.on('player_left', (data) => {
 socket.on('new_obstacle', (data) => {
     obstacles.push({
         x: CANVAS_WIDTH,
-        y: GROUND_Y,
+        y: GROUND_Y - OBSTACLE_HEIGHT, // Position obstacle on the ground
         width: OBSTACLE_WIDTH,
         height: OBSTACLE_HEIGHT
     });
@@ -115,7 +115,8 @@ function updatePlayer(player, deltaTime) {
 
 function drawPlayer(x, y, color) {
     ctx.beginPath();
-    ctx.arc(x, GROUND_Y + y, PLAYER_RADIUS, 0, Math.PI * 2);
+    // Draw player with bottom of circle touching the ground
+    ctx.arc(x, GROUND_Y - PLAYER_RADIUS + y, PLAYER_RADIUS, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
