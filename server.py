@@ -71,4 +71,4 @@ if __name__ == '__main__':
     # Create static directory if it doesn't exist
     if not os.path.exists('static'):
         os.makedirs('static')
-    socketio.run(app, debug=True) 
+    socketio.run(app, debug=False, use_reloader=False, host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
